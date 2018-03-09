@@ -8,12 +8,17 @@ import logger from 'redux-logger'
 import rootReducer from './reducers'
 import StatusBarView from './components/StatusBarView'
 import Navigation from './components/Navigation'
+import { setLocalNotification } from './utils/helpers'
 
 const store = createStore(rootReducer, 
   applyMiddleware(thunk, logger), 
 )
 
 export default class App extends React.Component {
+  componentDidMount() {
+    setLocalNotification()
+  }
+
   render() {
     return (
       <Provider store={store}>

@@ -5,6 +5,8 @@ import { MaterialCommunityIcons, Entypo } from '@expo/vector-icons'
 import DeckList from './DeckList'
 import DeckView from './DeckView'
 import NewDeck from './NewDeck'
+import NewCard from './NewCard'
+import Quiz from './Quiz'
 
 const Tabs = TabNavigator({
   deckList: {
@@ -43,18 +45,28 @@ const Tabs = TabNavigator({
   }
 })
 
+const stackNavOptions = {
+  headerTintColor: '#fff',
+  headerStyle: {
+    backgroundColor: '#0F0F0F'
+  }
+}
+
 const StackNav = StackNavigator({
   Home: {
     screen: Tabs,
   },
   DeckView: {
     screen: DeckView,
-    navigationOptions: {
-      headerTintColor: '#fff',
-      headerStyle: {
-        backgroundColor: '#0F0F0F'
-      }
-    }
+    navigationOptions: stackNavOptions
+  },
+  NewCard: {
+    screen: NewCard,
+    navigationOptions: stackNavOptions
+  },
+  Quiz: {
+    screen: Quiz,
+    navigationOptions: stackNavOptions
   }
 })
 

@@ -5,6 +5,9 @@ import { connect } from 'react-redux'
 import styled from 'styled-components'
 
 import { createDeck } from '../actions'
+import BigButton from './BigButton'
+import ScreenTitle from './ScreenTitle'
+import { textInputStyle } from '../utils/helpers'
 
 class NewDeck extends Component {
   state = {
@@ -33,10 +36,10 @@ class NewDeck extends Component {
 
   render() {
     return (
-      <KeyboardAvoidingView>
-        <Text>Make a new deck</Text>
+      <Container behavior="padding">
+        <ScreenTitle>New Deck</ScreenTitle>
         <TextInput
-          style={{height: 40}}
+          style={textInputStyle}
           placeholder="Enter a title for your deck!"
           onChangeText={deckTitle => this.setState({deckTitle})}
           onSubmitEditing={this.submitForm}
@@ -47,17 +50,28 @@ class NewDeck extends Component {
             {this.state.err}
           </Error>
         }
-        <Button
+        <BigButton
           onPress={this.submitForm}
-          title="Submit"
+          text="Submit"
         />
-      </KeyboardAvoidingView>
+      </Container>
     )
   }
 }
 
+const Container = styled.KeyboardAvoidingView`
+  padding: 20px;
+  margin-bottom: 20px;
+  flex: 1;
+  align-items: center;
+  justify-content: space-between;
+`
+
 const Error = styled.Text`
   color: red;
+  margin-bottom: 20px;
+  position: relative;
+  top: -10px;
 `
 
 const mapDispatchToProps = dispatch => 

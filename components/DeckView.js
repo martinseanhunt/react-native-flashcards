@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
+
+import ScreenTitle from './ScreenTitle'
+import BigButton from './BigButton'
 
 class DeckView extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -13,15 +16,40 @@ class DeckView extends Component {
   }
 
   render() {
-    const { deck } = this.props
+    const { deck, navigation } = this.props
+    const { key } = navigation.state.params
     return (
-      <View>
-        <Text>Title: {deck.title && deck.title}</Text>
-        <Text>Cards: {deck.questions && deck.questions.length}</Text>
-      </View>
+      <Container>
+        <ScreenTitle>Deck: {deck.title && deck.title}</ScreenTitle>
+        
+        <CardCount>Cards: {deck.questions && deck.questions.length}</CardCount>
+
+        <Buttons>
+          <BigButton 
+            onPress={() => navigation.navigate('NewCard', { key })}
+            text='Add a Card' />
+          <BigButton onPress={() => navigation.navigate('Quiz', { key })}
+            text='Start Quiz' />
+        </Buttons>
+      </Container>
     )
   }
-} 
+}
+
+const Container = styled.View`
+  flex: 1;
+  padding: 20px;
+  align-items: center;
+  justify-content: space-between;
+`
+
+const CardCount = styled.Text`
+  font-size: 45px;
+`
+
+const Buttons = styled.View`
+  width: 100%;
+`
 
 const mapStateToProps = ({ decks }, { navigation }) => {
   const { key } = navigation.state.params
