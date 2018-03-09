@@ -20,7 +20,7 @@ export const shuffleQuestions = (array) => {
 
 export const clearLocalNotifications = () =>  
   AsyncStorage.removeItem(NOTIFICATION_KEY)
-    .then(Notifications.cancelAllScheduledNotificationAsync)
+    .then(Notifications.cancelAllScheduledNotificationsAsync)
 
 
 const createNotification = () => ({
@@ -31,7 +31,7 @@ const createNotification = () => ({
   },
   android: {
     sound: true,
-    priority: high,
+    priority: 'high',
     sticky: false, 
     vibrate: true
   }
@@ -45,15 +45,15 @@ export const setLocalNotification = () => {
         Permissions.askAsync(Permissions.NOTIFICATIONS)
           .then(({status}) => {
             if (status === 'granted') {
-              Notifications.cancelAllScheduledNotificationAsync()
+              Notifications.cancelAllScheduledNotificationsAsync()
 
               let tomorrow = new Date()
               tomorrow.setDate(tomorrow.getDate() + 1)
-              tomorrow.serHours(14) 
+              tomorrow.setHours(14) 
               tomorrow.setMinutes(0)
 
               Notifications.scheduleLocalNotificationAsync(
-                createNotification,
+                createNotification(),
                 {
                   time: tomorrow, 
                   repeat: 'day'
@@ -71,6 +71,7 @@ export const textInputStyle = {
   height: 40, 
   fontSize: 22, 
   marginBottom: 20, 
+  minWidth: '75%',
   textAlign: 'center', 
   borderBottomWidth: 1 , 
   borderBottomColor: 'gray' 

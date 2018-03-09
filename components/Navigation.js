@@ -31,6 +31,7 @@ const Tabs = TabNavigator({
   },
   tabBarOptions: {
     activeTintColor: '#000',
+    inactiveTintColor: '#000',
     style: {
       height: 56,
       backgroundColor: '#fff',
